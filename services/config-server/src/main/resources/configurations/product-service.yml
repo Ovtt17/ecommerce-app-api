@@ -17,4 +17,4 @@ spring:
         user: ${spring.datasource.username}
         password: ${spring.datasource.password}
 server:
-    port: ${SERVER_PORT}
+    port: ${PRODUCT_SERVICE_SERVER_PORT}
