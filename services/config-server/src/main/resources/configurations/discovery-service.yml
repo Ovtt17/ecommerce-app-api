@@ -1,0 +1,10 @@
+eureka:
+    instance:
+        hostname: ${HOSTNAME}
+    client:
+        register-with-eureka: false
+        fetch-registry: false
+        service-url:
+            defaultZone: ${EUREKA_DEFAULT_ZONE}
+server:
+    port: ${SERVER_PORT}
