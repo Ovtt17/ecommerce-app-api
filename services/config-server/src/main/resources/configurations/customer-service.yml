@@ -9,4 +9,4 @@ spring:
             authentication-database: ${CUSTOMER_SERVICE_MONGODB_AUTH_DB}
 
 server:
-    port: ${CUSTOMER_SERVICE_PORT}
+    port: ${CUSTOMER_SERVICE_SERVER_PORT}
