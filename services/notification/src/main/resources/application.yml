@@ -1,5 +1,5 @@
 spring:
     application:
         name: notification-service
-server:
-    port: ${NOTIFICATION_SERVICE_SERVER_PORT}
+    config:
+        import: optional:configserver:${CONFIG_SERVER_URL}
