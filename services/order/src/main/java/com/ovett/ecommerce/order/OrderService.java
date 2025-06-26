@@ -8,8 +8,11 @@ import com.ovett.ecommerce.orderline.OrderLineRequest;
 import com.ovett.ecommerce.orderline.OrderLineService;
 import com.ovett.ecommerce.product.ProductClient;
 import com.ovett.ecommerce.product.PurchaseRequest;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +56,18 @@ public class OrderService {
         );
 
         return order.getId();
+    }
+
+    public List<OrderResponse> findAll() {
+        return orderRepository.findAll()
+                .stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
+    }
+
+    public OrderResponse findById(Integer orderId) {
+        return orderRepository.findById(orderId)
+                .map(orderMapper::toOrderResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find order with ID: " + orderId));
     }
 }
