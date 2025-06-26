@@ -6,6 +6,8 @@ import com.ovett.ecommerce.kafka.OrderConfirmation;
 import com.ovett.ecommerce.kafka.OrderProducer;
 import com.ovett.ecommerce.orderline.OrderLineRequest;
 import com.ovett.ecommerce.orderline.OrderLineService;
+import com.ovett.ecommerce.payment.PaymentClient;
+import com.ovett.ecommerce.payment.PaymentRequest;
 import com.ovett.ecommerce.product.ProductClient;
 import com.ovett.ecommerce.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +25,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(OrderRequest request) {
         var customer = this.customerClient.findCustomerById(request.customerId())
@@ -43,7 +46,15 @@ public class OrderService {
             );
         }
 
-        // todo payments
+        var paymentRequest = new PaymentRequest(
+                null,
+                order.getTotalAmount(),
+                order.getPaymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 OrderConfirmation.builder()
