@@ -27,7 +27,6 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 @RequiredArgsConstructor
 @Slf4j
 public class EmailService {
-
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
