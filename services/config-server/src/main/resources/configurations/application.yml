@@ -1,0 +1,15 @@
+eureka:
+    instance:
+        hostname: ${DISCOVERY_SERVICE_HOSTNAME}
+    client:
+        service-url:
+            defaultZone: ${DISCOVERY_SERVICE_EUREKA_DEFAULT_ZONE}
+spring:
+    cloud:
+        config:
+            override.system-properties: false
+
+management:
+    tracing:
+        sampling:
+            probability: 1.0
